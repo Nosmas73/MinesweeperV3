@@ -1,0 +1,10 @@
+Generate a grid class:
+	- takes dimensions
+	- can take a snapshot of blank grid for display grid
+	- generates grid
+	- locates bombs
+
+
+
+
+
