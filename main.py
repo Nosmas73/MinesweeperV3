@@ -3,72 +3,74 @@ import random
 class Grid:
     def __init__(self, size, bomb):
         self.size = size
-        self.width = size
-        self.height = size
         self.bombs = bomb
         self.rows = []
-        self.getGrid()
+        self.bomb_locations = []
+        self.displayGrid()
+        self.place_bomb()
+        self.game_over = False
 
-    def getGrid(self):
+    def displayGrid(self):
         for row in range(0, self.size):
             row = []
-            for count in range(0, self.width):
+            for count in range(0, self.size):
                 row.append(" X ")
             self.rows.append(row)
         return self.rows
 
     def place_bomb(self):
+
         for bomb in range(0, self.bombs):
             locationX = random.randint(0, self.size-1)
             locationY = random.randint(0, self.size-1)
-            #print(locationY)
-            #print(locationX)
-            self.rows[0-locationY].pop(locationX)
-            self.rows[0-locationY].insert(locationX, " - ")
-            #print("Bomb at: ({},{})".format(locationX+1, locationY))
 
-    def updateGrid(self):
-        pass
+            self.bomb_locations.append([locationX, locationY])
+
+
+
+    def select_tile(self, x_location, y_location):
+        if ([x_location,y_location]) in self.bomb_locations:
+            self.game_over = True
+
 
     def __repr__(self):
         rowStr = ""
+
+        count = 1
         for row in self.rows:
-            joinedRow = "".join(row)
-            rowStr += joinedRow
-            rowStr += "\n"
+            joinedRow = str(count) + "".join(row)
+            rowStr = joinedRow + "\n" + rowStr
+
+            count += 1
+        print(self.bomb_locations)
         return rowStr
 
 
-
-def print_display_grid(row_list):
-    rowStr = ""
-    for row in row_list:
-        joinedRow = "".join(row)
-        rowStr += joinedRow
-        rowStr += "\n"
-    print(rowStr)
-
-
-#size_input = input("What size of game?: ")
-#bomb_input = input("How many bombs?: ")
-
 size_input = 10
-bomb_input = 20
+bomb_input = 5
 
-user_grid = Grid(int(size_input),int(bomb_input))
-display_grid = []
+def game():
+    play_game = True
+    gameGrid = Grid(int(size_input),int(bomb_input))
+    while play_game:
+        continue_choice = input("Would you like to play?: ")
+        if continue_choice != "quit":
+            print("Game Starting")
+            print(gameGrid)
+            user_choiceX = int(input("X: "))
+            user_choiceY = int(input("Y: "))
+            gameGrid.select_tile(user_choiceX,user_choiceY)
 
-display_grid = user_grid.rows.copy()
-
-print(display_grid)
-
-print_display_grid(display_grid)
-
-user_grid.place_bomb()
-
-print(display_grid)
-
-print_display_grid(display_grid)
+            if gameGrid.game_over == True:
+                print("Game Over")
+                play_game = False
+            #gameGrid.place_bomb()
 
 
-#print(user_grid)
+
+        else:
+            play_game = False
+
+
+
+game()

@@ -1,8 +1,18 @@
 Generate a grid class:
 	- takes dimensions
-	- can take a snapshot of blank grid for display grid
-	- generates grid
-	- locates bombs
+	- display player's grid
+	- places bombs
+	- creates list of bomb locations
+	- check user selected location for bomb
+	- check around location on grid for bombs
+	- reveal tiles near selection that aren't near
+	- change number of tiles next to bombs
+	
+
+
+Ask user for game variables
+
+Ask user to pick location on grid
 
 
 
