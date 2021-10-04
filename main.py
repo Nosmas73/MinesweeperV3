@@ -20,17 +20,23 @@ class Grid:
         return self.rows
 
     def place_bomb(self):
-
         for bomb in range(0, self.bombs):
             locationX = random.randint(0, self.size-1)
             locationY = random.randint(0, self.size-1)
 
             self.bomb_locations.append([locationX, locationY])
 
+
+
+
+
     def select_tile(self, x_location, y_location):
         testing_tiles = [[x_location, y_location]]
+
         while len(testing_tiles) > 0:
-            if self.rows[y_location + 1][x_location - 1] not in self.bomblocations:
+            if self.rows[y_location + 1][x_location - 1] not in self.bomb_locations:
+                testing_tiles.append([y_location, x_location])
+                self.rows[y_location + 1].insert(x_location - 1, " - ")
 
         if ([x_location, y_location]) in self.bomb_locations:
             self.game_over = True
@@ -38,6 +44,10 @@ class Grid:
         else:
             self.rows[y_location - 1].pop(x_location - 1)
             self.rows[y_location - 1].insert(x_location - 1, " - ")
+
+
+
+
 
     def __repr__(self):
         rowStr = ""
